@@ -1,4 +1,4 @@
-package ru.mirea.manager.domain.enums;
+package ru.mirea.domain.entity.enums;
 
 public enum TaskStatus {
     NEW,

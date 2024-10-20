@@ -2,11 +2,11 @@ package ru.mirea.manager.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.mirea.manager.domain.Task;
-import ru.mirea.manager.domain.enums.TaskStatus;
+import ru.mirea.domain.entity.Task;
+import ru.mirea.domain.entity.enums.TaskStatus;
+import ru.mirea.domain.repository.TaskRepository;
 import ru.mirea.manager.dto.TaskRqDto;
 import ru.mirea.manager.exception.TaskNotFoundException;
-import ru.mirea.manager.repository.TaskRepository;
 import ru.mirea.manager.service.TaskService;
 
 import java.time.LocalDateTime;

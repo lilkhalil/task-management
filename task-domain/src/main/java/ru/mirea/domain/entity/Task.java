@@ -1,4 +1,4 @@
-package ru.mirea.manager.domain;
+package ru.mirea.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import ru.mirea.manager.domain.enums.TaskStatus;
+import ru.mirea.domain.entity.enums.TaskStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

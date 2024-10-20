@@ -3,7 +3,7 @@ package ru.mirea.manager.service.impl;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.mirea.manager.domain.enums.TaskStatus;
+import ru.mirea.domain.entity.enums.TaskStatus;
 import ru.mirea.manager.properties.TaskProperties;
 import ru.mirea.manager.service.TaskStatusService;
 

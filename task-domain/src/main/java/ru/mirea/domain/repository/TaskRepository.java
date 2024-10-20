@@ -1,10 +1,10 @@
-package ru.mirea.manager.repository;
+package ru.mirea.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ru.mirea.manager.domain.Task;
-import ru.mirea.manager.domain.enums.TaskStatus;
+import ru.mirea.domain.entity.Task;
+import ru.mirea.domain.entity.enums.TaskStatus;
 
 import java.util.List;
 
