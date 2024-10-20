@@ -11,6 +11,7 @@
     <modules>
         <module>task-domain</module>
         <module>task-manager</module>
+        <module>task-worker</module>
     </modules>
 
     <name>task-management</name>
@@ -47,6 +48,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>3.2.4</version>
         </dependency>
     </dependencies>
 

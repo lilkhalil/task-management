@@ -7,6 +7,7 @@ import ru.mirea.domain.entity.enums.TaskStatus;
 import ru.mirea.domain.repository.TaskRepository;
 import ru.mirea.manager.dto.TaskRqDto;
 import ru.mirea.manager.exception.TaskNotFoundException;
+import ru.mirea.manager.producer.KafkaProducer;
 import ru.mirea.manager.service.TaskService;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final KafkaProducer kafkaProducer;
 
     @Override
     public List<Task> findAll(TaskStatus status) {
@@ -39,6 +41,8 @@ public class TaskServiceImpl implements TaskService {
                 .build();
 
         taskRepository.saveAndFlush(task);
+
+        kafkaProducer.sendMessage(task);
 
         return task;
     }

@@ -1,4 +1,4 @@
-package ru.mirea.manager.properties;
+package ru.mirea.worker.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,4 +9,6 @@ import org.springframework.stereotype.Component;
 @Data
 public class TaskProperties {
     private double completionProbability;
+    private long lowerBound;
+    private long upperBound;
 }

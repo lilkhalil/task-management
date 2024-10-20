@@ -1,4 +1,4 @@
-package ru.mirea.manager;
+package ru.mirea.worker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,9 +7,10 @@ import ru.mirea.domain.configuration.DomainConfiguration;
 
 @SpringBootApplication
 @Import(DomainConfiguration.class)
-public class ManagerApplication {
+public class TaskWorkerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ManagerApplication.class, args);
+        SpringApplication.run(TaskWorkerApplication.class, args);
     }
+
 }

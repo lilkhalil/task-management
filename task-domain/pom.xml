@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>task-domain</name>
-	<description>Сервис по работе с данными</description>
+	<description>Task domain service for persisting tasks</description>
 
 	<dependencies>
 		<dependency>
