@@ -61,6 +61,7 @@
                             <generatorName>spring</generatorName>
                             <configOptions>
                                 <useJakartaEe>true</useJakartaEe>
+                                <useOptional>true</useOptional>
                                 <openApiNullable>false</openApiNullable>
                                 <additionalModelTypeAnnotations>
                                     @lombok.Builder
