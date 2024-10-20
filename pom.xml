@@ -10,7 +10,7 @@
 
     <modules>
         <module>task-domain</module>
-        <module>manager</module>
+        <module>task-manager</module>
     </modules>
 
     <name>task-management</name>
