@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: manager
+tasks:
+  completion-probability: 0.7
