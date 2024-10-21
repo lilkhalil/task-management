@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
-public class KafkaConfiguration {
+public class ConsumerConfiguration {
 
     @Setter(onMethod_ = @Value("${spring.kafka.bootstrap-servers}"))
     private String bootstrapServers;

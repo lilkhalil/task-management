@@ -6,6 +6,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import ru.mirea.domain.entity.Task;
 import ru.mirea.domain.entity.enums.TaskStatus;
+import ru.mirea.domain.repository.TaskRepository;
 import ru.mirea.worker.processor.TaskProcessor;
 import ru.mirea.worker.properties.TaskProperties;
 
@@ -19,21 +20,29 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TaskProcessorImpl implements TaskProcessor {
 
     private final ThreadPoolTaskExecutor taskExecutor;
+    private final TaskRepository taskRepository;
     private final TaskProperties taskProperties;
 
     /**
-     * Имитация выполнения задача, случайная задержка 5-10 секунд
+     * Имитация выполнения задачи в отдельном потоке со случайной задержкой.
+     * Решение об успешном (ошибочном) завершении задач принимается в зависимости
+     * от параметров, хранящихся в классе {@link TaskProperties}, который
+     * содержит настройки задержки и вероятность успешного завершения.
      *
      * @param task Новая задача
      */
     @Override
-    public CompletableFuture<Task> process(final Task task) {
-        return CompletableFuture.supplyAsync(() -> {
+    public void process(final Task task) {
+        CompletableFuture.supplyAsync(() -> {
+            startProcessing(task);
             simulateProcessing(task);
-            return isCompleted()
-                    ? completeTask(task)
-                    : failTask(task);
-        }, taskExecutor);
+            return isCompleted() ? completeTask(task) : failTask(task);
+        }, taskExecutor).thenApply(taskRepository::save);
+    }
+
+    private void startProcessing(Task task) {
+        task.setStatus(TaskStatus.PROCESSING);
+        taskRepository.save(task);
     }
 
     private void simulateProcessing(Task task) {

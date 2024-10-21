@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaConfiguration {
+public class ProducerConfiguration {
 
     @Setter(onMethod_ = @Value("${tasks.topic-name}"))
     private String topic;
