@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "tasks")
 @Data
 public class TaskProperties {
+    private String topicName;
     private double completionProbability;
     private long lowerBound;
     private long upperBound;

@@ -11,6 +11,7 @@ spring:
     consumer:
       group-id: task-group
 tasks:
+  topic-name: tasks
   completionProbability: 0.7
   lower-bound: 5000
   upper-bound: 10000

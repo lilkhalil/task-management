@@ -16,7 +16,7 @@ public class TaskConsumerImpl implements TaskConsumer {
     private final TaskProcessor taskProcessor;
 
     @Override
-    @KafkaListener(topics = "tasks", groupId = "task-group")
+    @KafkaListener(topics = "${tasks.topic-name}", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(Task task) {
         taskProcessor.process(task);
     }

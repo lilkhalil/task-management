@@ -1,14 +1,11 @@
 package ru.mirea.manager.configuration;
 
 import lombok.Setter;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
@@ -21,8 +18,6 @@ import java.util.Map;
 @Configuration
 public class ProducerConfiguration {
 
-    @Setter(onMethod_ = @Value("${tasks.topic-name}"))
-    private String topic;
     @Setter(onMethod_ = @Value("${spring.kafka.bootstrap-servers}"))
     private String bootstrapServers;
 
@@ -38,13 +33,5 @@ public class ProducerConfiguration {
     @Bean
     public KafkaTemplate<String, Task> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
-    }
-
-    @Bean
-    @Profile("dev")
-    public NewTopic newTopic() {
-        return TopicBuilder
-                .name(topic)
-                .build();
     }
 }
