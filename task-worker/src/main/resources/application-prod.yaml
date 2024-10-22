@@ -9,11 +9,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: false
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     consumer:
-      group-id: task-group
+      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:task-group}
 tasks:
+  topic-name: tasks
   completionProbability: 0.7
   lower-bound: 5000
   upper-bound: 10000
+logging:
+  level:
+    org.apache.kafka: ERROR
+    kafka: ERROR

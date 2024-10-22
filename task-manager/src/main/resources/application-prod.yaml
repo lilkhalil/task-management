@@ -9,7 +9,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: false
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
 tasks:
   topic-name: tasks
+logging:
+  level:
+    org.apache.kafka: ERROR
+    kafka: ERROR
