@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>ru.mirea</groupId>
-            <artifactId>task-domain</artifactId>
+            <artifactId>task-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

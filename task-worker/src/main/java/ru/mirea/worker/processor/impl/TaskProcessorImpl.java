@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import ru.mirea.domain.entity.Task;
-import ru.mirea.domain.entity.enums.TaskStatus;
-import ru.mirea.domain.repository.TaskRepository;
+import ru.mirea.model.TaskMessage;
+import ru.mirea.model.enums.TaskStatus;
 import ru.mirea.worker.processor.TaskProcessor;
+import ru.mirea.worker.producer.TaskProducer;
 import ru.mirea.worker.properties.TaskProperties;
 
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TaskProcessorImpl implements TaskProcessor {
 
     private final ThreadPoolTaskExecutor taskExecutor;
-    private final TaskRepository taskRepository;
+    private final TaskProducer taskProducer;
     private final TaskProperties taskProperties;
 
     /**
@@ -29,23 +29,23 @@ public class TaskProcessorImpl implements TaskProcessor {
      * от параметров, хранящихся в классе {@link TaskProperties}, который
      * содержит настройки задержки и вероятность успешного завершения.
      *
-     * @param task Новая задача
+     * @param taskMessage Новая задача
      */
     @Override
-    public void process(final Task task) {
+    public void process(final TaskMessage taskMessage) {
         CompletableFuture.supplyAsync(() -> {
-            startProcessing(task);
-            simulateProcessing(task);
-            return isCompleted() ? completeTask(task) : failTask(task);
-        }, taskExecutor).thenApply(taskRepository::save);
+            startProcessing(taskMessage);
+            simulateProcessing(taskMessage);
+            return isCompleted() ? completeTask(taskMessage) : failTask(taskMessage);
+        }, taskExecutor).thenAccept(taskProducer::sendMessage);
     }
 
-    private void startProcessing(Task task) {
+    private void startProcessing(TaskMessage task) {
         task.setStatus(TaskStatus.PROCESSING);
-        taskRepository.save(task);
+        taskProducer.sendMessage(task);
     }
 
-    private void simulateProcessing(Task task) {
+    private void simulateProcessing(TaskMessage task) {
         log.info("Обработка задачи: {}", task);
         long origin = taskProperties.getLowerBound();
         long bound = taskProperties.getUpperBound();
@@ -60,13 +60,13 @@ public class TaskProcessorImpl implements TaskProcessor {
         return Math.random() < taskProperties.getCompletionProbability();
     }
 
-    private Task failTask(Task task) {
+    private TaskMessage failTask(TaskMessage task) {
         task.setStatus(TaskStatus.FAILED);
         log.info("Обработка задачи завершена [FAILED]: {}", task);
         return task;
     }
 
-    private Task completeTask(Task task) {
+    private TaskMessage completeTask(TaskMessage task) {
         task.setStatus(TaskStatus.COMPLETED);
         task.setCompletedAt(LocalDateTime.now());
         log.info("Обработка задачи завершена [COMPLETED]: {}", task);

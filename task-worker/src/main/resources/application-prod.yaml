@@ -1,21 +1,13 @@
 spring:
   application:
     name: task-worker
-  datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/task}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:1}
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     consumer:
-      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:task-group}
+      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:task-processor}
 tasks:
-  topic-name: tasks
+  topic-name-processing: tasks-pc
+  topic-name-persisting: tasks-ps
   completionProbability: 0.7
   lower-bound: 5000
   upper-bound: 10000

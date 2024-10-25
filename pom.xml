@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>task-domain</module>
+        <module>task-model</module>
         <module>task-manager</module>
         <module>task-worker</module>
     </modules>

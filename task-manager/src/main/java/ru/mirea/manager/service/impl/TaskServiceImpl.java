@@ -2,12 +2,13 @@ package ru.mirea.manager.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.mirea.domain.entity.Task;
-import ru.mirea.domain.entity.enums.TaskStatus;
-import ru.mirea.domain.repository.TaskRepository;
 import ru.mirea.manager.dto.TaskRqDto;
+import ru.mirea.manager.entity.Task;
+import ru.mirea.manager.entity.enums.TaskStatus;
 import ru.mirea.manager.exception.TaskNotFoundException;
-import ru.mirea.manager.producer.KafkaProducer;
+import ru.mirea.manager.mapper.TaskMapper;
+import ru.mirea.manager.producer.TaskProducer;
+import ru.mirea.manager.repository.TaskRepository;
 import ru.mirea.manager.service.TaskService;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,8 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
-    private final KafkaProducer kafkaProducer;
+    private final TaskProducer taskProducer;
+    private final TaskMapper taskMapper;
 
     @Override
     public List<Task> findAll(TaskStatus status) {
@@ -42,7 +44,7 @@ public class TaskServiceImpl implements TaskService {
 
         taskRepository.saveAndFlush(task);
 
-        kafkaProducer.sendMessage(task);
+        taskProducer.sendMessage(taskMapper.taskToTaskMessage(task));
 
         return task;
     }

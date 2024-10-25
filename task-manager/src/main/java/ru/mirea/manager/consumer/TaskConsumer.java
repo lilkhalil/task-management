@@ -1,4 +1,4 @@
-package ru.mirea.worker.consumer;
+package ru.mirea.manager.consumer;
 
 import ru.mirea.model.TaskMessage;
 

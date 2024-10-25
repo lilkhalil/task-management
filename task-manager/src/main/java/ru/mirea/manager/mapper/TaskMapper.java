@@ -2,10 +2,13 @@ package ru.mirea.manager.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import ru.mirea.domain.entity.Task;
 import ru.mirea.manager.dto.TaskDto;
+import ru.mirea.manager.entity.Task;
+import ru.mirea.model.TaskMessage;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TaskMapper {
     TaskDto taskToTaskDto(Task task);
+    TaskMessage taskToTaskMessage(Task task);
+    Task taskMessageToTask(TaskMessage taskMessage);
 }

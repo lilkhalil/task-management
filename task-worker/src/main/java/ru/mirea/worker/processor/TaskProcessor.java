@@ -1,7 +1,7 @@
 package ru.mirea.worker.processor;
 
-import ru.mirea.domain.entity.Task;
+import ru.mirea.model.TaskMessage;
 
 public interface TaskProcessor {
-    void process(Task task);
+    void process(TaskMessage taskMessage);
 }

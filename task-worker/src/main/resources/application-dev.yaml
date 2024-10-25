@@ -1,17 +1,15 @@
 spring:
   application:
     name: task-worker
-  datasource:
-    url: jdbc:h2:tcp://localhost:9090/mem:task
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: task-group
+      group-id: task-processor
+    admin:
+      auto-create: true
 tasks:
-  topic-name: tasks
+  topic-name-processing: tasks-pc
+  topic-name-persisting: tasks-ps
   completionProbability: 0.7
   lower-bound: 5000
   upper-bound: 10000

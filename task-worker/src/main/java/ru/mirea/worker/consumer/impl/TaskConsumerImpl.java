@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import ru.mirea.domain.entity.Task;
+import ru.mirea.model.TaskMessage;
 import ru.mirea.worker.consumer.TaskConsumer;
 import ru.mirea.worker.processor.TaskProcessor;
 
@@ -16,8 +16,8 @@ public class TaskConsumerImpl implements TaskConsumer {
     private final TaskProcessor taskProcessor;
 
     @Override
-    @KafkaListener(topics = "${tasks.topic-name}", groupId = "${spring.kafka.consumer.group-id}")
-    public void consume(Task task) {
-        taskProcessor.process(task);
+    @KafkaListener(topics = "${tasks.topic-name-processing}", groupId = "${spring.kafka.consumer.group-id}")
+    public void consume(TaskMessage taskMessage) {
+        taskProcessor.process(taskMessage);
     }
 }

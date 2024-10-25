@@ -1,8 +1,8 @@
 package ru.mirea.manager.service;
 
-import ru.mirea.domain.entity.Task;
-import ru.mirea.domain.entity.enums.TaskStatus;
 import ru.mirea.manager.dto.TaskRqDto;
+import ru.mirea.manager.entity.Task;
+import ru.mirea.manager.entity.enums.TaskStatus;
 
 import java.util.List;
 

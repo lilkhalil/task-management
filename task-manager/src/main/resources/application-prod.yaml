@@ -12,8 +12,11 @@ spring:
     open-in-view: false
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:task-persister}
 tasks:
-  topic-name: tasks
+  topic-name-processing: tasks-pc
+  topic-name-persisting: tasks-ps
 logging:
   level:
     org.apache.kafka: ERROR

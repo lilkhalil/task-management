@@ -34,6 +34,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
+        '400':
+          description: Неизвестный статус задачи
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       operationId: createTask
       summary: Создание задачи
@@ -129,3 +135,14 @@ components:
           example: "Составить финансовый отчет за квартал"
       required:
         - title
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Числовой код ошибки, указывающий тип ошибки.
+          example: 400
+        message:
+          type: string
+          description: Читабельное сообщение с описанием ошибки.
+          example: Ошибка данных запроса
